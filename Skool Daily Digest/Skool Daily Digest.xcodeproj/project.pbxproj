@@ -33,13 +33,11 @@
 		0366E9BB2FD32E3F0046ABEB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0366E9B52FD32E3F0046ABEB /* README.md */; };
 		0366E9BC2FD32E3F0046ABEB /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 0366E9B62FD32E3F0046ABEB /* icons */; };
 		0366E9BD2FD32E3F0046ABEB /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 0366E9B72FD32E3F0046ABEB /* manifest.json */; };
-		0366E9BE2FD32E3F0046ABEB /* Skool Daily Digest in Resources */ = {isa = PBXBuildFile; fileRef = 0366E9B82FD32E3F0046ABEB /* Skool Daily Digest */; };
 		0366E9BF2FD32E3F0046ABEB /* src in Resources */ = {isa = PBXBuildFile; fileRef = 0366E9B92FD32E3F0046ABEB /* src */; };
 		0366E9C02FD32E3F0046ABEB /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 0366E9B42FD32E3F0046ABEB /* popup.html */; };
 		0366E9C12FD32E3F0046ABEB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0366E9B52FD32E3F0046ABEB /* README.md */; };
 		0366E9C22FD32E3F0046ABEB /* icons in Resources */ = {isa = PBXBuildFile; fileRef = 0366E9B62FD32E3F0046ABEB /* icons */; };
 		0366E9C32FD32E3F0046ABEB /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 0366E9B72FD32E3F0046ABEB /* manifest.json */; };
-		0366E9C42FD32E3F0046ABEB /* Skool Daily Digest in Resources */ = {isa = PBXBuildFile; fileRef = 0366E9B82FD32E3F0046ABEB /* Skool Daily Digest */; };
 		0366E9C52FD32E3F0046ABEB /* src in Resources */ = {isa = PBXBuildFile; fileRef = 0366E9B92FD32E3F0046ABEB /* src */; };
 /* End PBXBuildFile section */
 
@@ -111,7 +109,6 @@
 		0366E9B52FD32E3F0046ABEB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		0366E9B62FD32E3F0046ABEB /* icons */ = {isa = PBXFileReference; lastKnownFileType = folder; name = icons; path = ../../icons; sourceTree = "<group>"; };
 		0366E9B72FD32E3F0046ABEB /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = ../../manifest.json; sourceTree = "<group>"; };
-		0366E9B82FD32E3F0046ABEB /* Skool Daily Digest */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Skool Daily Digest"; sourceTree = SOURCE_ROOT; };
 		0366E9B92FD32E3F0046ABEB /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../../src; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -246,7 +243,6 @@
 				0366E9B52FD32E3F0046ABEB /* README.md */,
 				0366E9B62FD32E3F0046ABEB /* icons */,
 				0366E9B72FD32E3F0046ABEB /* manifest.json */,
-				0366E9B82FD32E3F0046ABEB /* Skool Daily Digest */,
 				0366E9B92FD32E3F0046ABEB /* src */,
 			);
 			name = Resources;
@@ -415,7 +411,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0366E9C32FD32E3F0046ABEB /* manifest.json in Resources */,
-				0366E9C42FD32E3F0046ABEB /* Skool Daily Digest in Resources */,
 				0366E9C22FD32E3F0046ABEB /* icons in Resources */,
 				0366E9C52FD32E3F0046ABEB /* src in Resources */,
 				0366E9C12FD32E3F0046ABEB /* README.md in Resources */,
@@ -428,7 +423,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0366E9BD2FD32E3F0046ABEB /* manifest.json in Resources */,
-				0366E9BE2FD32E3F0046ABEB /* Skool Daily Digest in Resources */,
 				0366E9BC2FD32E3F0046ABEB /* icons in Resources */,
 				0366E9BF2FD32E3F0046ABEB /* src in Resources */,
 				0366E9BB2FD32E3F0046ABEB /* README.md in Resources */,
@@ -644,6 +638,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YHWHU4634V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Skool Daily Digest Extension";
@@ -677,6 +672,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YHWHU4634V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Skool Daily Digest Extension";
@@ -713,6 +709,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YHWHU4634V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Skool Daily Digest";
@@ -753,6 +750,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YHWHU4634V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Skool Daily Digest";
@@ -792,6 +790,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YHWHU4634V;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -827,6 +826,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YHWHU4634V;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -864,6 +864,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YHWHU4634V;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -905,6 +906,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YHWHU4634V;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
