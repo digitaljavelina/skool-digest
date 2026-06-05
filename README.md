@@ -94,7 +94,7 @@ skool-digest/
 |----------|-------|-------|
 | Claude | claude-sonnet-4-6 | Default. Uses prompt caching for faster repeat runs |
 | OpenAI | gpt-5.5 | JSON mode enabled |
-| Gemini | gemini-2.0-flash / 2.5-flash | Auto-fallback between models |
+| Gemini | gemini-2.5-flash | Direct Gemini API call with JSON response mode |
 | OpenRouter | ~anthropic/claude-haiku-latest | Uses OpenRouter's latest Claude Haiku alias |
 
 ---

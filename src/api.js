@@ -218,23 +218,7 @@ async function callOpenRouter(system, user, apiKey) {
 
 // ── Google Gemini ──
 async function callGemini(system, user, apiKey) {
-  // Gemini 2.5 Flash has a "thinking" mode that outputs reasoning before JSON
-  // even with responseMimeType set. We use gemini-2.0-flash which is more
-  // predictable for structured output, falling back to 2.5-flash if needed.
-  const models = ['gemini-2.0-flash', 'gemini-2.5-flash'];
-  let lastError = null;
-
-  for (const model of models) {
-    try {
-      const raw = await callGeminiModel(model, system, user, apiKey);
-      return raw;
-    } catch(e) {
-      lastError = e;
-      // If it's an auth/rate error, don't retry with another model
-      if (e.message.includes('API key') || e.message.includes('rate limit')) throw e;
-    }
-  }
-  throw lastError;
+  return callGeminiModel(PROVIDERS.gemini.model, system, user, apiKey);
 }
 
 async function callGeminiModel(model, system, user, apiKey) {
@@ -249,8 +233,8 @@ async function callGeminiModel(model, system, user, apiKey) {
         maxOutputTokens: 16384,
         temperature: 0.0,
         responseMimeType: 'application/json',
-        // Disable thinking for gemini-2.5-flash to get clean JSON
-        ...(model === 'gemini-2.5-flash' ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
+        // Keep 2.5 Flash output focused on the JSON response.
+        thinkingConfig: { thinkingBudget: 0 },
       },
     }),
   });
