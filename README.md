@@ -1,6 +1,6 @@
 # Skool Daily Digest
 
-A Chrome extension that scrapes your Skool community feed and generates an AI-powered daily briefing — so you never miss what matters.
+A Chrome and Safari Web Extension that scrapes your Skool community feed and generates an AI-powered daily briefing so you never miss what matters.
 
 Built for the **Early AI-dopters** community on Skool.
 
@@ -17,18 +17,34 @@ Built for the **Early AI-dopters** community on Skool.
 
 ---
 
-## Installation (Developer Mode)
+## Chrome Installation (Developer Mode)
 
 This extension is not on the Chrome Web Store. Install it manually:
 
 1. Download or clone this repo
    ```
-   git clone https://github.com/afrozahmad07/skool-digest.git
+   git clone https://github.com/digitaljavelina/skool-digest.git
    ```
 2. Open Chrome and go to `chrome://extensions`
 3. Enable **Developer mode** (top-right toggle)
 4. Click **Load unpacked** and select the `skool-digest` folder
 5. The extension icon will appear in your toolbar
+
+---
+
+## Safari Installation (Developer Mode)
+
+The Safari version lives in the Xcode wrapper project under `Skool Daily Digest/`.
+
+1. Open `Skool Daily Digest/Skool Daily Digest.xcodeproj` in Xcode
+2. Select the macOS or iOS app target for the platform you want to test
+3. Set your development team in Signing & Capabilities if Xcode asks for it
+4. Build and run the app from Xcode
+5. Enable the extension:
+   - macOS: Safari > Settings > Extensions
+   - iOS: Settings > Safari > Extensions
+
+The Safari app wrapper uses the same Web Extension assets from this repo, including `manifest.json`, `popup.html`, `src/`, and `icons/`.
 
 ---
 
@@ -58,6 +74,7 @@ This extension is not on the Chrome Web Store. Install it manually:
 
 ```
 skool-digest/
+├── Skool Daily Digest/  # Xcode Safari Web Extension wrapper for macOS and iOS
 ├── manifest.json        # Chrome extension config (Manifest V3)
 ├── popup.html           # Extension popup UI
 ├── icons/               # Extension icons (16, 48, 128px)
