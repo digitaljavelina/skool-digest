@@ -479,6 +479,7 @@ function setupSettings() {
   document.getElementById('inputAnthropic').value = settings.anthropicKey || '';
   document.getElementById('inputOpenAI').value    = settings.openaiKey    || '';
   document.getElementById('inputGemini').value    = settings.geminiKey    || '';
+  document.getElementById('inputOpenRouter').value = settings.openrouterKey || '';
   renderMembers();
 }
 
@@ -519,6 +520,7 @@ async function saveSettings() {
   const anthropicKey = document.getElementById('inputAnthropic').value.trim();
   const openaiKey    = document.getElementById('inputOpenAI').value.trim();
   const geminiKey    = document.getElementById('inputGemini').value.trim();
+  const openrouterKey = document.getElementById('inputOpenRouter').value.trim();
 
   // Validate key formats — warn but still save
   const warnings = [];
@@ -528,13 +530,16 @@ async function saveSettings() {
     warnings.push('OpenAI key should start with sk-');
   if (geminiKey && !geminiKey.startsWith('AIza'))
     warnings.push('Gemini key should start with AIza');
-  if (anthropicKey.length > 200 || openaiKey.length > 200 || geminiKey.length > 200)
+  if (openrouterKey && !openrouterKey.startsWith('sk-or-'))
+    warnings.push('OpenRouter key should start with sk-or-');
+  if (anthropicKey.length > 200 || openaiKey.length > 200 || geminiKey.length > 200 || openrouterKey.length > 200)
     warnings.push('API key looks too long — double check it');
 
   // Enforce max length before storing
   settings.anthropicKey = anthropicKey.slice(0, 200);
   settings.openaiKey    = openaiKey.slice(0, 200);
   settings.geminiKey    = geminiKey.slice(0, 200);
+  settings.openrouterKey = openrouterKey.slice(0, 200);
 
   await Storage.saveSettings(settings);
 

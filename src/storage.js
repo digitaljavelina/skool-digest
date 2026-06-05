@@ -32,13 +32,14 @@ export const Storage = {
   // ── Settings ──
   async getSettings() {
     const data = await this.get([
-      'provider', 'anthropicKey', 'openaiKey', 'geminiKey', 'watchedMembers',
+      'provider', 'anthropicKey', 'openaiKey', 'geminiKey', 'openrouterKey', 'watchedMembers',
     ]);
     return {
       provider:       data.provider       || 'anthropic',
       anthropicKey:   data.anthropicKey   || '',
       openaiKey:      data.openaiKey      || '',
       geminiKey:      data.geminiKey      || '',
+      openrouterKey:  data.openrouterKey  || '',
       watchedMembers: data.watchedMembers || [],
     };
   },
@@ -49,6 +50,7 @@ export const Storage = {
       anthropicKey:   s.anthropicKey,
       openaiKey:      s.openaiKey,
       geminiKey:      s.geminiKey,
+      openrouterKey:  s.openrouterKey,
       watchedMembers: s.watchedMembers,
     });
   },
@@ -115,6 +117,7 @@ export const Storage = {
   getActiveKey(settings) {
     if (settings.provider === 'openai')  return settings.openaiKey;
     if (settings.provider === 'gemini')  return settings.geminiKey;
+    if (settings.provider === 'openrouter') return settings.openrouterKey;
     return settings.anthropicKey;
   },
 };

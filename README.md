@@ -9,7 +9,7 @@ Built for the **Early AI-dopters** community on Skool.
 ## Features
 
 - **AI Digest** — Ranks all posts by importance with summaries, key insights, and tags
-- **Multi-provider** — Works with Claude (Anthropic), GPT (OpenAI), or Gemini (Google)
+- **Multi-provider** — Works with Claude (Anthropic), GPT (OpenAI), Gemini (Google), or OpenRouter
 - **Watched Members** — Pin specific members so their posts always surface at the top
 - **Dark / Light mode** — Toggle from the header
 - **Export** — Open digest as `.md` or styled `.html` in a new tab, or copy Markdown to clipboard
@@ -56,6 +56,7 @@ The Safari app wrapper uses the same Web Extension assets from this repo, includ
    - **Claude** → [console.anthropic.com](https://console.anthropic.com)
    - **OpenAI** → [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
    - **Gemini** → [aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
+   - **OpenRouter** → [openrouter.ai/keys](https://openrouter.ai/keys)
 4. Optionally add **Watched Members** (exact names as shown on Skool)
 5. Click **Save Settings**
 
@@ -80,7 +81,7 @@ skool-digest/
 ├── icons/               # Extension icons (16, 48, 128px)
 └── src/
     ├── popup.js         # Popup logic, rendering, settings, export
-    ├── api.js           # AI provider calls (Claude / OpenAI / Gemini)
+    ├── api.js           # AI provider calls (Claude / OpenAI / Gemini / OpenRouter)
     ├── content.js       # DOM scraper injected into Skool feed pages
     └── storage.js       # Chrome local storage helpers
 ```
@@ -94,6 +95,7 @@ skool-digest/
 | Claude | claude-sonnet-4-6 | Default. Uses prompt caching for faster repeat runs |
 | OpenAI | gpt-5.5 | JSON mode enabled |
 | Gemini | gemini-2.0-flash / 2.5-flash | Auto-fallback between models |
+| OpenRouter | ~anthropic/claude-haiku-latest | Uses OpenRouter's latest Claude Haiku alias |
 
 ---
 

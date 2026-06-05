@@ -1,9 +1,10 @@
 // api.js — Multi-provider AI digest generation
 
 export const PROVIDERS = {
-  anthropic: { name: 'Claude Sonnet 4.6',        model: 'claude-sonnet-4-6' },
-  openai:    { name: 'GPT-5.5 (OpenAI)',          model: 'gpt-5.5' },
-  gemini:    { name: 'Gemini 2.5 Flash (Google)', model: 'gemini-2.5-flash' },
+  anthropic:  { name: 'Claude Sonnet 4.6',             model: 'claude-sonnet-4-6' },
+  openai:     { name: 'GPT-5.5 (OpenAI)',               model: 'gpt-5.5' },
+  gemini:     { name: 'Gemini 2.5 Flash (Google)',      model: 'gemini-2.5-flash' },
+  openrouter: { name: 'OpenRouter Claude Haiku Latest', model: '~anthropic/claude-haiku-latest' },
 };
 
 export async function generateDigest(posts, watchedMembers, apiKey, provider = 'anthropic') {
@@ -30,6 +31,7 @@ export async function generateDigest(posts, watchedMembers, apiKey, provider = '
   if (provider === 'anthropic')    raw = await callAnthropic(system, user, apiKey);
   else if (provider === 'openai')  raw = await callOpenAI(system, user, apiKey);
   else if (provider === 'gemini')  raw = await callGemini(system, user, apiKey);
+  else if (provider === 'openrouter') raw = await callOpenRouter(system, user, apiKey);
   else throw new Error('Unknown provider: ' + provider);
 
   const digest = parseJSON(raw, PROVIDERS[provider]?.name);
@@ -183,6 +185,33 @@ async function callOpenAI(system, user, apiKey) {
   if (!res.ok) {
     const e = await res.json().catch(() => ({}));
     throw new Error(e?.error?.message || `OpenAI error ${res.status}`);
+  }
+  return (await res.json()).choices?.[0]?.message?.content || '';
+}
+
+// ── OpenRouter ──
+async function callOpenRouter(system, user, apiKey) {
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+      'X-Title': 'Skool Daily Digest',
+    },
+    body: JSON.stringify({
+      model: PROVIDERS.openrouter.model,
+      max_tokens: 16000,
+      temperature: 0,
+      response_format: { type: 'json_object' },
+      messages: [{ role: 'system', content: system }, { role: 'user', content: user }],
+    }),
+  });
+  if (!res.ok) {
+    const e = await res.json().catch(() => ({}));
+    const msg = e?.error?.message || `OpenRouter error ${res.status}`;
+    if (res.status === 401 || res.status === 403) throw new Error('Invalid OpenRouter API key. Check Settings.');
+    if (res.status === 429) throw new Error('OpenRouter rate limit hit. Wait a moment and try again.');
+    throw new Error(msg);
   }
   return (await res.json()).choices?.[0]?.message?.content || '';
 }
