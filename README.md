@@ -1,6 +1,6 @@
 # Skool Daily Digest
 
-A Chrome extension that scrapes your Skool community feed and generates an AI-powered daily briefing — so you never miss what matters.
+A Chrome and Safari Web Extension that scrapes your Skool community feed and generates an AI-powered daily briefing so you never miss what matters.
 
 Built for the **Early AI-dopters** community on Skool.
 
@@ -9,7 +9,7 @@ Built for the **Early AI-dopters** community on Skool.
 ## Features
 
 - **AI Digest** — Ranks all posts by importance with summaries, key insights, and tags
-- **Multi-provider** — Works with Claude (Anthropic), GPT (OpenAI), or Gemini (Google)
+- **Multi-provider** — Works with Claude (Anthropic), GPT (OpenAI), Gemini (Google), or OpenRouter
 - **Watched Members** — Pin specific members so their posts always surface at the top
 - **Dark / Light mode** — Toggle from the header
 - **Export** — Open digest as `.md` or styled `.html` in a new tab, or copy Markdown to clipboard
@@ -17,7 +17,7 @@ Built for the **Early AI-dopters** community on Skool.
 
 ---
 
-## Installation (Developer Mode)
+## Chrome Installation (Developer Mode)
 
 This extension is not on the Chrome Web Store. Install it manually:
 
@@ -32,6 +32,22 @@ This extension is not on the Chrome Web Store. Install it manually:
 
 ---
 
+## Safari Installation (Developer Mode)
+
+The Safari version lives in the Xcode wrapper project under `Skool Daily Digest/`.
+
+1. Open `Skool Daily Digest/Skool Daily Digest.xcodeproj` in Xcode
+2. Select the macOS or iOS app target for the platform you want to test
+3. Set your development team in Signing & Capabilities if Xcode asks for it
+4. Build and run the app from Xcode
+5. Enable the extension:
+   - macOS: Safari > Settings > Extensions
+   - iOS: Settings > Safari > Extensions
+
+The Safari app wrapper uses the same Web Extension assets from this repo, including `manifest.json`, `popup.html`, `src/`, and `icons/`.
+
+---
+
 ## Setup
 
 1. Click the extension icon → go to the **Settings** tab
@@ -40,6 +56,7 @@ This extension is not on the Chrome Web Store. Install it manually:
    - **Claude** → [console.anthropic.com](https://console.anthropic.com)
    - **OpenAI** → [platform.openai.com/api-keys](https://platform.openai.com/api-keys)
    - **Gemini** → [aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
+   - **OpenRouter** → [openrouter.ai/keys](https://openrouter.ai/keys)
 4. Optionally add **Watched Members** (exact names as shown on Skool)
 5. Click **Save Settings**
 
@@ -58,12 +75,13 @@ This extension is not on the Chrome Web Store. Install it manually:
 
 ```
 skool-digest/
+├── Skool Daily Digest/  # Xcode Safari Web Extension wrapper for macOS and iOS
 ├── manifest.json        # Chrome extension config (Manifest V3)
 ├── popup.html           # Extension popup UI
 ├── icons/               # Extension icons (16, 48, 128px)
 └── src/
     ├── popup.js         # Popup logic, rendering, settings, export
-    ├── api.js           # AI provider calls (Claude / OpenAI / Gemini)
+    ├── api.js           # AI provider calls (Claude / OpenAI / Gemini / OpenRouter)
     ├── content.js       # DOM scraper injected into Skool feed pages
     └── storage.js       # Chrome local storage helpers
 ```
@@ -76,7 +94,8 @@ skool-digest/
 |----------|-------|-------|
 | Claude | claude-sonnet-4-6 | Default. Uses prompt caching for faster repeat runs |
 | OpenAI | gpt-5.5 | JSON mode enabled |
-| Gemini | gemini-2.0-flash / 2.5-flash | Auto-fallback between models |
+| Gemini | gemini-2.5-flash | Direct Gemini API call with JSON response mode |
+| OpenRouter | ~anthropic/claude-haiku-latest | Uses OpenRouter's latest Claude Haiku alias |
 
 ---
 
