@@ -296,6 +296,7 @@ body {
 .pdot-anthropic { background: #c8f561; }
 .pdot-openai    { background: #10a37f; }
 .pdot-gemini    { background: #4285f4; }
+.pdot-openrouter { background: #f15bb5; }
 .key-group { display: none; }
 .field {
   width: 100%; padding: 9px 12px;
@@ -391,6 +392,7 @@ body {
         <button class="provider-tab active" data-provider="anthropic"><span class="pdot pdot-anthropic"></span>Claude</button>
         <button class="provider-tab" data-provider="openai"><span class="pdot pdot-openai"></span>OpenAI</button>
         <button class="provider-tab" data-provider="gemini"><span class="pdot pdot-gemini"></span>Gemini</button>
+        <button class="provider-tab" data-provider="openrouter"><span class="pdot pdot-openrouter"></span>OpenRouter</button>
       </div>
       <div class="key-group" data-provider="anthropic" style="display:block">
         <input type="password" class="field" id="inputAnthropic" placeholder="sk-ant-…">
@@ -403,6 +405,10 @@ body {
       <div class="key-group" data-provider="gemini">
         <input type="password" class="field" id="inputGemini" placeholder="AIza…">
         <div class="field-hint">Get key at <a href="https://aistudio.google.com/app/apikey" target="_blank">aistudio.google.com</a></div>
+      </div>
+      <div class="key-group" data-provider="openrouter">
+        <input type="password" class="field" id="inputOpenRouter" placeholder="sk-or-v1-…">
+        <div class="field-hint">Uses Claude Haiku Latest. Get key at <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a></div>
       </div>
     </div>
     <div class="settings-section">
