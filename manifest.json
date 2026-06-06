@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Skool Daily Digest",
-  "version": "3.2.0",
+  "version": "1.0",
   "description": "AI-powered daily briefing for your Skool community.",
   "permissions": [
     "storage",

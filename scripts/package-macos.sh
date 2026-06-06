@@ -95,12 +95,21 @@ xcodebuild -exportArchive \
   -exportPath "$EXPORT_DIR" \
   -allowProvisioningUpdates
 
-[ -d "$APP_PATH" ] || die "Exported app not found: $APP_PATH"
+[ -d "$EXPORT_DIR/$APP_NAME.app" ] || die "Exported app not found: $EXPORT_DIR/$APP_NAME.app"
+
+# Move the app OUT of the iCloud-synced repo for ALL signing-sensitive work, then
+# point APP_PATH at the copy. iCloud's file-provider continually re-stamps
+# com.apple.FinderInfo onto bundles in the synced tree, which RACES with strict
+# verification, notarization, and zipping. Gatekeeper's looser check hides it;
+# Safari's strict check rejects the extension as "no longer valid". /var/folders
+# is local and never re-contaminated, so the race disappears entirely.
+WORK_DIR="$(mktemp -d)"
+/usr/bin/ditto "$EXPORT_DIR/$APP_NAME.app" "$WORK_DIR/$APP_NAME.app"
+APP_PATH="$WORK_DIR/$APP_NAME.app"
 
 # Strip extended-attribute "detritus" (com.apple.FinderInfo, resource forks,
-# fileprovider/quarantine xattrs). iCloud Drive / Desktop & Documents sync stamps
-# freshly-built bundles with these, and the notary service rejects them. This does
-# not break the signature: those xattrs were added after signing, not sealed by it.
+# quarantine xattrs) carried over by the copy. Does not break the signature:
+# those xattrs were added after signing, not sealed by it.
 step "Stripping extended attributes from exported app"
 xattr -cr "$APP_PATH"
 
@@ -122,7 +131,7 @@ echo "Signed by: $AUTH"
 # 3. Notarize the app, then staple its ticket
 # ----------------------------------------------------------------------------
 step "Notarizing app (this waits for Apple to finish)"
-APP_ZIP="$DIST_DIR/$APP_NAME-app.zip"
+APP_ZIP="$WORK_DIR/$APP_NAME-app.zip"
 /usr/bin/ditto -c -k --keepParent "$APP_PATH" "$APP_ZIP"
 xcrun notarytool submit "$APP_ZIP" --keychain-profile "$NOTARY_PROFILE" --wait
 rm -f "$APP_ZIP"
@@ -136,22 +145,15 @@ xcrun stapler validate "$APP_PATH"
 # ----------------------------------------------------------------------------
 # A zip is the canonical format for distributing a notarized app. It needs no
 # signature of its own: the app inside is signed, notarized, and stapled, so it
-# launches cleanly once unzipped. `ditto -c -k --keepParent` makes a standard zip.
-#
-# CRITICAL: stage in a NON-synced temp dir, not in place. If we strip xattrs
-# inside the iCloud-synced repo, the file-provider re-stamps com.apple.FinderInfo
-# onto the bundle in the moment before ditto zips it. That detritus on the .appex
-# makes Safari reject the extension as "no longer valid" (Gatekeeper is looser and
-# still passes, which hides the problem). /var/folders is local and safe.
+# launches cleanly once unzipped. The app already lives in a non-synced temp dir
+# (moved there right after export), so it can't be re-contaminated by iCloud.
+# Gate on strict verification anyway: a contaminated .appex makes Safari reject
+# the extension as "no longer valid", and Gatekeeper's looser check won't catch it.
 step "Building distribution zip"
-ZIP_STAGE="$(mktemp -d)"
-/usr/bin/ditto "$APP_PATH" "$ZIP_STAGE/$APP_NAME.app"
-xattr -cr "$ZIP_STAGE/$APP_NAME.app"
-codesign --verify --deep --strict "$ZIP_STAGE/$APP_NAME.app" \
-  || die "Strict signature verification failed on the staged app (leftover xattr detritus?)."
+codesign --verify --deep --strict "$APP_PATH" \
+  || die "Strict signature verification failed before zipping (xattr detritus?)."
 rm -f "$ZIP_PATH"
-/usr/bin/ditto -c -k --keepParent "$ZIP_STAGE/$APP_NAME.app" "$ZIP_PATH"
-rm -rf "$ZIP_STAGE"
+/usr/bin/ditto -c -k --keepParent "$APP_PATH" "$ZIP_PATH"
 
 # ----------------------------------------------------------------------------
 # 5. Optionally build a signed + notarized DMG (only when it can be signed)
@@ -196,12 +198,15 @@ fi
 # 6. Final verification (what a downloader's Mac will check)
 # ----------------------------------------------------------------------------
 step "Verifying final artifacts"
+echo "--- app strict signature ---"; codesign --verify --deep --strict "$APP_PATH" && echo "ok (Safari-valid)"
 echo "--- app staple ---";       xcrun stapler validate "$APP_PATH"
 echo "--- app Gatekeeper ---";   spctl -a -t exec -vv "$APP_PATH"
 if [[ -n "$DMG_BUILT" ]]; then
   echo "--- DMG staple ---";     xcrun stapler validate "$DMG_PATH"
   echo "--- DMG Gatekeeper ---"; spctl -a -t open --context context:primary-signature -vv "$DMG_PATH"
 fi
+
+rm -rf "$WORK_DIR"
 
 printf '\n\033[1;32mDone.\033[0m\n'
 echo "Artifact (zip): $ZIP_PATH"
