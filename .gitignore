@@ -2,3 +2,8 @@
 build/
 xcuserdata/
 *.xcuserstate
+
+# Release artifacts (build them with scripts/package-macos.sh, attach to GitHub Releases)
+dist/
+*.xcarchive
+*.dmg

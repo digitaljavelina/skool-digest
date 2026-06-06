@@ -654,7 +654,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Skool-Daily-Digest.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.digitaljavelina.Skool-Daily-Digest.Extension";
 				PRODUCT_NAME = "Skool Daily Digest Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -688,7 +688,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Skool-Daily-Digest.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.digitaljavelina.Skool-Daily-Digest.Extension";
 				PRODUCT_NAME = "Skool Daily Digest Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -730,7 +730,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Skool-Daily-Digest";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.digitaljavelina.Skool-Daily-Digest";
 				PRODUCT_NAME = "Skool Daily Digest";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -771,7 +771,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Skool-Daily-Digest";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.digitaljavelina.Skool-Daily-Digest";
 				PRODUCT_NAME = "Skool Daily Digest";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -809,7 +809,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Skool-Daily-Digest.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.digitaljavelina.Skool-Daily-Digest.Extension";
 				PRODUCT_NAME = "Skool Daily Digest Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -845,7 +845,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Skool-Daily-Digest.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.digitaljavelina.Skool-Daily-Digest.Extension";
 				PRODUCT_NAME = "Skool Daily Digest Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -886,7 +886,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Skool-Daily-Digest";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.digitaljavelina.Skool-Daily-Digest";
 				PRODUCT_NAME = "Skool Daily Digest";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -928,7 +928,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yourCompany.Skool-Daily-Digest";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.digitaljavelina.Skool-Daily-Digest";
 				PRODUCT_NAME = "Skool Daily Digest";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
