@@ -137,10 +137,21 @@ xcrun stapler validate "$APP_PATH"
 # A zip is the canonical format for distributing a notarized app. It needs no
 # signature of its own: the app inside is signed, notarized, and stapled, so it
 # launches cleanly once unzipped. `ditto -c -k --keepParent` makes a standard zip.
+#
+# CRITICAL: stage in a NON-synced temp dir, not in place. If we strip xattrs
+# inside the iCloud-synced repo, the file-provider re-stamps com.apple.FinderInfo
+# onto the bundle in the moment before ditto zips it. That detritus on the .appex
+# makes Safari reject the extension as "no longer valid" (Gatekeeper is looser and
+# still passes, which hides the problem). /var/folders is local and safe.
 step "Building distribution zip"
-xattr -cr "$APP_PATH"
+ZIP_STAGE="$(mktemp -d)"
+/usr/bin/ditto "$APP_PATH" "$ZIP_STAGE/$APP_NAME.app"
+xattr -cr "$ZIP_STAGE/$APP_NAME.app"
+codesign --verify --deep --strict "$ZIP_STAGE/$APP_NAME.app" \
+  || die "Strict signature verification failed on the staged app (leftover xattr detritus?)."
 rm -f "$ZIP_PATH"
-/usr/bin/ditto -c -k --keepParent "$APP_PATH" "$ZIP_PATH"
+/usr/bin/ditto -c -k --keepParent "$ZIP_STAGE/$APP_NAME.app" "$ZIP_PATH"
+rm -rf "$ZIP_STAGE"
 
 # ----------------------------------------------------------------------------
 # 5. Optionally build a signed + notarized DMG (only when it can be signed)
@@ -158,6 +169,8 @@ if [[ "$IDENTITIES" == *"Developer ID Application"* ]]; then
   STAGING="$(mktemp -d)"
   /usr/bin/ditto "$APP_PATH" "$STAGING/$APP_NAME.app"
   xattr -cr "$STAGING/$APP_NAME.app"   # ditto carries xattrs from the synced source; clear again
+  codesign --verify --deep --strict "$STAGING/$APP_NAME.app" \
+    || die "Strict signature verification failed on the staged app for the DMG."
   ln -s /Applications "$STAGING/Applications"
   rm -f "$DMG_PATH"
   hdiutil create -volname "$APP_NAME" -srcfolder "$STAGING" -fs HFS+ -format UDZO -ov "$DMG_PATH"
